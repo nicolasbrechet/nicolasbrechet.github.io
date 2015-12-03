@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Teches on Nicolas Brechet</title>
+    <link>http://nicolasbrechet.com/tech/</link>
+    <description>Recent content in Teches on Nicolas Brechet</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 01 Dec 2015 13:37:00 +0000</lastBuildDate>
+    <atom:link href="http://nicolasbrechet.com/tech/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Installing VyOS on a PCEngines APU.1D4</title>
+      <link>http://nicolasbrechet.com/Tech/vyosOnAPU1D4/</link>
+      <pubDate>Tue, 01 Dec 2015 13:37:00 +0000</pubDate>
+      
+      <guid>http://nicolasbrechet.com/Tech/vyosOnAPU1D4/</guid>
+      <description>
+
+&lt;p&gt;I&amp;rsquo;m using a Macbook Pro running OS X 10.11 El Capitan.&lt;/p&gt;
+
+&lt;h2 id=&#34;hardware:6cdbe740ee9937657e820ffa794d4765&#34;&gt;Hardware&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://pcengines.ch/apu1d4.htm&#34;&gt;PCEngines APU.1D4&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;USB to Serial cable: I&amp;rsquo;m using a FTDI-based adapter with a FT232R chipset&lt;/li&gt;
+&lt;li&gt;USB dongle: I&amp;rsquo;m using a Transcend USB3 / 64GB but that&amp;rsquo;s overkill. Just make sure there&amp;rsquo;s enough space to copy the VyOS ISO&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;software:6cdbe740ee9937657e820ffa794d4765&#34;&gt;Software&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://unetbootin.github.io&#34;&gt;Unetbootin&lt;/a&gt; to make the USB dongle bootable&lt;/li&gt;
+&lt;li&gt;OS X 10.11 El Capitan (but you can do pretty much the same things in Windows or Linux)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://vyos.net&#34;&gt;VyOS 1.1.6&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;bootable-usb-dongle-preparation:6cdbe740ee9937657e820ffa794d4765&#34;&gt;Bootable USB dongle preparation&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Download the VyOS image&lt;/li&gt;
+&lt;li&gt;Make sure the USB Dongle is formatted in MBR / MS Fat or Unetbootin will have difficulties recognizing it&lt;/li&gt;
+&lt;li&gt;Use Unetbootin to copy the VyOS ISO&lt;/li&gt;
+&lt;li&gt;Edit the syslinux.cfg: &lt;a href=&#34;https://gist.github.com/nicolasbrechet/cbae692d38716567c84f&#34;&gt;https://gist.github.com/nicolasbrechet/cbae692d38716567c84f&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This is from this thread on the VyOS forum: &lt;a href=&#34;http://forum.vyos.net/showthread.php?tid=12699&#34;&gt;http://forum.vyos.net/showthread.php?tid=12699&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;serial-connection:6cdbe740ee9937657e820ffa794d4765&#34;&gt;Serial connection&lt;/h2&gt;
+
+&lt;p&gt;This is the hard part (well not that hard)&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Click on the Apple menu / About this Mac&lt;/li&gt;
+&lt;li&gt;Then click on System Report&lt;/li&gt;
+&lt;li&gt;In USB, find your USB/Serial adapter&amp;rsquo;s serial number&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&#34;01.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Open a terminal. I use &lt;a href=&#34;https://www.iterm2.com&#34;&gt;iTerm&lt;/a&gt;, but it&amp;rsquo;s not important.&lt;/li&gt;
+&lt;li&gt;Find your USB/Serial adapter in /dev: &lt;code&gt;ls /dev/ | grep &amp;lt;serial number&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&#34;02.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Start a new screen session: &lt;code&gt;screen /dev/tty.usbserial-&amp;lt;serial number&amp;gt; 115200&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&#34;03.png&#34; alt=&#34;&#34; /&gt;
+&lt;img src=&#34;04.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;At this point, you should:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;plug the USB dongle to the USB port of the APU.1D4&lt;/li&gt;
+&lt;li&gt;plug the power adapter to the APU.1D4, then to your power outlet.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;You will see text on iTerm, and you should be able to boot from the USB dongle. If you have something else installed already on your APU.1D4, like I did, you can unplug/replug the power to start over, in case you miss the boot menu&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;05.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;06.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;installation:6cdbe740ee9937657e820ffa794d4765&#34;&gt;Installation&lt;/h2&gt;
+
+&lt;p&gt;The boot will look like it froze, showing &lt;code&gt;Starting vyos-intfwatchd: vyos-intfwatchd&lt;/code&gt; and nothing else.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;07.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;At this point, you should press on &lt;code&gt;ctrl+a&lt;/code&gt; and then &lt;code&gt;ctrl+k&lt;/code&gt; to kill the screen session.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;08.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Press &lt;code&gt;y&lt;/code&gt; to confirm.&lt;/p&gt;
+
+&lt;p&gt;Change the settings for a new screen session with a speed of 9600:
+&lt;code&gt;screen /dev/tty.usbserial-&amp;lt;serial number&amp;gt; 9600&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;You might see a blank screen, press &lt;code&gt;enter&lt;/code&gt;&amp;hellip;
+&lt;img src=&#34;09.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now you can log in with user &lt;code&gt;vyos&lt;/code&gt; and password &lt;code&gt;vyos&lt;/code&gt;&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;10.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Enjoy !&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

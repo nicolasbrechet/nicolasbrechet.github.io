@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.14" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="http://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+<link rel="stylesheet" href="/css/normalize.css">
+<link rel="stylesheet" href="/css/skeleton.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="alternate" href="/index.xml" type="application/rss+xml" title="Nicolas Brechet">
+<title>Installing VyOS on a PCEngines APU.1D4 - Nicolas Brechet</title>
+</head>
+<body>
+
+<div class="container">
+
+	<header role="banner">
+		<div class="header-logo">
+			<a href="/"><img src="/images/logo.jpg" width="60" height="60"></a>
+		</div>
+		
+	</header>
+
+
+	<main role="main">
+		<article itemscope itemtype="http://schema.org/BlogPosting">
+			<h1 class="entry-title" itemprop="headline">Installing VyOS on a PCEngines APU.1D4</h1>
+			<span class="entry-meta"><time itemprop="datePublished" datetime="2015-12-01">December 01, 2015</time></span>
+			<section itemprop="entry-text">
+				
+
+<p>I&rsquo;m using a Macbook Pro running OS X 10.11 El Capitan.</p>
+
+<h2 id="hardware:6cdbe740ee9937657e820ffa794d4765">Hardware</h2>
+
+<ul>
+<li><a href="http://pcengines.ch/apu1d4.htm">PCEngines APU.1D4</a></li>
+<li>USB to Serial cable: I&rsquo;m using a FTDI-based adapter with a FT232R chipset</li>
+<li>USB dongle: I&rsquo;m using a Transcend USB3 / 64GB but that&rsquo;s overkill. Just make sure there&rsquo;s enough space to copy the VyOS ISO</li>
+</ul>
+
+<h2 id="software:6cdbe740ee9937657e820ffa794d4765">Software</h2>
+
+<ul>
+<li><a href="https://unetbootin.github.io">Unetbootin</a> to make the USB dongle bootable</li>
+<li>OS X 10.11 El Capitan (but you can do pretty much the same things in Windows or Linux)</li>
+<li><a href="http://vyos.net">VyOS 1.1.6</a></li>
+</ul>
+
+<h2 id="bootable-usb-dongle-preparation:6cdbe740ee9937657e820ffa794d4765">Bootable USB dongle preparation</h2>
+
+<ol>
+<li>Download the VyOS image</li>
+<li>Make sure the USB Dongle is formatted in MBR / MS Fat or Unetbootin will have difficulties recognizing it</li>
+<li>Use Unetbootin to copy the VyOS ISO</li>
+<li>Edit the syslinux.cfg: <a href="https://gist.github.com/nicolasbrechet/cbae692d38716567c84f">https://gist.github.com/nicolasbrechet/cbae692d38716567c84f</a></li>
+</ol>
+
+<p>This is from this thread on the VyOS forum: <a href="http://forum.vyos.net/showthread.php?tid=12699">http://forum.vyos.net/showthread.php?tid=12699</a></p>
+
+<h2 id="serial-connection:6cdbe740ee9937657e820ffa794d4765">Serial connection</h2>
+
+<p>This is the hard part (well not that hard)</p>
+
+<ul>
+<li>Click on the Apple menu / About this Mac</li>
+<li>Then click on System Report</li>
+<li>In USB, find your USB/Serial adapter&rsquo;s serial number</li>
+</ul>
+
+<p><img src="01.png" alt="" /></p>
+
+<ul>
+<li>Open a terminal. I use <a href="https://www.iterm2.com">iTerm</a>, but it&rsquo;s not important.</li>
+<li>Find your USB/Serial adapter in /dev: <code>ls /dev/ | grep &lt;serial number&gt;</code></li>
+</ul>
+
+<p><img src="02.png" alt="" /></p>
+
+<ul>
+<li>Start a new screen session: <code>screen /dev/tty.usbserial-&lt;serial number&gt; 115200</code></li>
+</ul>
+
+<p><img src="03.png" alt="" />
+<img src="04.png" alt="" /></p>
+
+<p>At this point, you should:</p>
+
+<ul>
+<li>plug the USB dongle to the USB port of the APU.1D4</li>
+<li>plug the power adapter to the APU.1D4, then to your power outlet.</li>
+</ul>
+
+<p>You will see text on iTerm, and you should be able to boot from the USB dongle. If you have something else installed already on your APU.1D4, like I did, you can unplug/replug the power to start over, in case you miss the boot menu&hellip;</p>
+
+<p><img src="05.png" alt="" /></p>
+
+<p><img src="06.png" alt="" /></p>
+
+<h2 id="installation:6cdbe740ee9937657e820ffa794d4765">Installation</h2>
+
+<p>The boot will look like it froze, showing <code>Starting vyos-intfwatchd: vyos-intfwatchd</code> and nothing else.</p>
+
+<p><img src="07.png" alt="" /></p>
+
+<p>At this point, you should press on <code>ctrl+a</code> and then <code>ctrl+k</code> to kill the screen session.</p>
+
+<p><img src="08.png" alt="" /></p>
+
+<p>Press <code>y</code> to confirm.</p>
+
+<p>Change the settings for a new screen session with a speed of 9600:
+<code>screen /dev/tty.usbserial-&lt;serial number&gt; 9600</code></p>
+
+<p>You might see a blank screen, press <code>enter</code>&hellip;
+<img src="09.png" alt="" /></p>
+
+<p>Now you can log in with user <code>vyos</code> and password <code>vyos</code>&hellip;</p>
+
+<p><img src="10.png" alt="" /></p>
+
+<p>Enjoy !</p>
+
+			</section>
+		</article>
+	</main>
+
+
+	<footer role="contentinfo">
+		<div class="hr"></div>
+		<div class="footer-link">
+			
+			<a href="https://twitter.com/nicolasbrechet" target="_blank">Twitter</a></span>
+			
+			<a href="https://github.com/nicolasbrechet/" target="_blank">GitHub</a></span>
+		</div>
+		<div class="copyright">Copyright &copy; Nicolas Brechet All rights reserved.</div>
+	</footer>
+
+</div>
+
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-18895598-1', 'auto');
+	ga('send', 'pageview');
+</script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+</html>
