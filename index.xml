@@ -2,19 +2,28 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Nicolas Brechet</title>
-    <link>http://nicolasbrechet.com/</link>
+    <link>http://localhost:1313/</link>
     <description>Recent content on Nicolas Brechet</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 01 Dec 2015 13:37:00 +0000</lastBuildDate>
-    <atom:link href="http://nicolasbrechet.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 03 Dec 2015 13:37:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Boxen: automatic config for your mac</title>
+      <link>http://localhost:1313/Tech/boxen/</link>
+      <pubDate>Thu, 03 Dec 2015 13:37:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/Tech/boxen/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Installing VyOS on a PCEngines APU.1D4</title>
-      <link>http://nicolasbrechet.com/Tech/vyosOnAPU1D4/</link>
+      <link>http://localhost:1313/Tech/vyosOnAPU1D4/</link>
       <pubDate>Tue, 01 Dec 2015 13:37:00 +0000</pubDate>
       
-      <guid>http://nicolasbrechet.com/Tech/vyosOnAPU1D4/</guid>
+      <guid>http://localhost:1313/Tech/vyosOnAPU1D4/</guid>
       <description>
 
 &lt;p&gt;I&amp;rsquo;m using a Macbook Pro running OS X 10.11 El Capitan.&lt;/p&gt;
